@@ -1,7 +1,5 @@
 # harvest
 
-[![Build Status](https://travis-ci.org/holidayextras/harvest.svg?branch=master)](https://travis-ci.org/holidayextras/harvest)
-
 ## About
 
 Harvest is a basket management system that translates baskets between 2 representations -a shared basket can have its data manipulated and a stored basket is a versioned object that can then be persisted to a document store.
