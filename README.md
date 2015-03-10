@@ -1,5 +1,7 @@
 # harvest
 
+[ ![Codeship Status for holidayextras/harvest](https://codeship.com/projects/364463a0-a952-0132-8961-52627b42595c/status?branch=master)](https://codeship.com/projects/67649)
+
 ## About
 
 Harvest is a basket management system that translates baskets between 2 representations -a shared basket can have its data manipulated and a stored basket is a versioned object that can then be persisted to a document store.
