@@ -131,7 +131,8 @@ describe( 'LIB: Harvest', function() {
 			var requestedBasket = loadTestResource( './fixtures/sharedBasketWithAgentAndPartyComposition.json' );
 
 			Harvest.saveBasket( requestedBasket, storedBasket );
-			var updatedVersion = storedBasket.versions[requestedBasket.version];
+			var version = storedBasket.tags[requestedBasket.tag];
+			var updatedVersion = storedBasket.versions[version];
 
 			updatedVersion['+'].should.include.keys( 'adults', 'children', 'infants' );
 			updatedVersion['-'].should.include( 'park' );
