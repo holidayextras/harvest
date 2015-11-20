@@ -1,7 +1,7 @@
 {
   "name": "harvest",
   "description": "Basket Management tool for Shortbreaks",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "homepage": "https://github.com/holidayextras/harvest",
   "author": {
     "name": "Shortbreaks",
@@ -17,7 +17,7 @@
     "node": ">= 0.10.0"
   },
   "scripts": {
-    "test": "node_modules/deployment-helpers/nodeApps/preRelease.sh && grunt jshint && grunt jscs && istanbul cover _mocha -- --recursive -R spec"
+    "test": "node_modules/deployment-helpers/nodeApps/preRelease.sh && node_modules/.bin/make-up lib test && istanbul cover _mocha -- --recursive -R spec"
   },
   "devDependencies": {
     "chai": "1.10.0",
@@ -26,7 +26,7 @@
     "grunt-contrib-jshint": "0.11.0",
     "grunt-jscs": "1.5.0",
     "istanbul": "0.3.5",
-    "make-up": "1.0.4",
+    "make-up": "6.0.0",
     "istanbul": "0.3.7",
     "mocha": "2.1.0"
   },
