@@ -2,7 +2,7 @@
 'use strict';
 
 var chai = require( 'chai' );
-chai.should();
+var expect = chai.expect;
 var Harvest = require( '../lib/harvest' );
 var _ = require( 'lodash' );
 
@@ -28,16 +28,16 @@ describe( 'LIB: Harvest', function() {
       var storedBasket = Harvest.createBasket( requestedBasket );
 
       // Test overall structure
-      storedBasket.should.be.an( 'object' );
-      storedBasket.should.include.keys( 'head', 'tags', 'versions' );
+      expect( storedBasket ).to.be.an( 'object' );
+      expect( storedBasket ).to.include.keys( 'head', 'tags', 'versions' );
 
       // Test Tags
-      storedBasket.tags.should.be.an( 'object' );
-      _.keys( storedBasket.tags ).should.have.length( 1 );
+      expect( storedBasket.tags ).to.be.an( 'object' );
+      expect( _.keys( storedBasket.tags ) ).to.have.length( 1 );
 
       // Test Versions
-      storedBasket.versions.should.be.an( 'object' );
-      _.keys( storedBasket.versions ).should.have.length( 1 );
+      expect( storedBasket.versions ).to.be.an( 'object' );
+      expect( _.keys( storedBasket.versions ) ).to.have.length( 1 );
 
       done();
 
@@ -57,16 +57,16 @@ describe( 'LIB: Harvest', function() {
       var storedBasket = Harvest.createBasket( requestedBasket );
 
       // Test overall structure
-      storedBasket.should.be.an( 'object' );
-      storedBasket.should.include.keys( 'head', 'tags', 'versions' );
+      expect( storedBasket ).to.be.an( 'object' );
+      expect( storedBasket ).to.include.keys( 'head', 'tags', 'versions' );
 
       // Test Tags
-      storedBasket.tags.should.be.an( 'object' );
-      _.keys( storedBasket.tags ).should.have.length( 2 );
+      expect( storedBasket.tags ).to.be.an( 'object' );
+      expect( _.keys( storedBasket.tags ) ).to.have.length( 2 );
 
       // Test Versions
-      storedBasket.versions.should.be.an( 'object' );
-      _.keys( storedBasket.versions ).should.have.length( 2 );
+      expect( storedBasket.versions ).to.be.an( 'object' );
+      expect( _.keys( storedBasket.versions ) ).to.have.length( 2 );
 
       done();
 
@@ -82,11 +82,11 @@ describe( 'LIB: Harvest', function() {
 
       // Check that this date is stored as a string
       var storedBasket = Harvest.createBasket( requestedBasket );
-      storedBasket.createdAt.should.be.a( 'string' );
+      expect( storedBasket.createdAt ).to.be.a( 'string' );
 
       // and it is parseable into a date object
       var createdAtDateObject = Date.parse( storedBasket.createdAt );
-      createdAtDateObject.should.be.ok;
+      expect( createdAtDateObject ).to.be.ok;
       done();
 
     } );
@@ -107,8 +107,8 @@ describe( 'LIB: Harvest', function() {
 
       // Above we have 4 things that can be searched and one that can't - ensure that we get 4 keys searchable
       var storedBasket = Harvest.createBasket( requestedBasket );
-      storedBasket.searchableKeys.should.be.an( 'object' );
-      _.keys( storedBasket.searchableKeys ).should.have.length( 4 );
+      expect( storedBasket.searchableKeys ).to.be.an( 'object' );
+      expect( _.keys( storedBasket.searchableKeys ) ).to.have.length( 4 );
       done();
 
     } );
@@ -116,7 +116,7 @@ describe( 'LIB: Harvest', function() {
     it( 'Harvest should throw an error if invalid sharedBasket is sent in', function( done ) {
       var requestedBasket = {};
 
-      Harvest.createBasket.bind( Harvest, requestedBasket ).should.throw( 'Invalid Shared Basket' );
+      expect( Harvest.createBasket.bind( Harvest, requestedBasket ) ).to.throw( 'Invalid Shared Basket' );
 
       done();
 
@@ -127,15 +127,15 @@ describe( 'LIB: Harvest', function() {
   describe( '#saveBasket', function() {
     it( 'Harvest should return a new Stored Basket with correct additions and subtractions when both a shared and a stored basket are passed in', function( done ) {
 
-      var storedBasket = loadTestResource( './fixtures/storedBasketWithParkAndAgent.json' );
-      var requestedBasket = loadTestResource( './fixtures/sharedBasketWithAgentAndPartyComposition.json' );
+      var storedBasket = loadTestResource( './fixtures/storedBasketWithParkAndAgent' );
+      var requestedBasket = loadTestResource( './fixtures/sharedBasketWithAgentAndPartyComposition' );
 
       Harvest.saveBasket( requestedBasket, storedBasket );
       var version = storedBasket.tags[requestedBasket.tag];
       var updatedVersion = storedBasket.versions[version];
 
-      updatedVersion['+'].should.include.keys( 'adults', 'children', 'infants' );
-      updatedVersion['-'].should.include( 'park' );
+      expect( updatedVersion['+'] ).to.include.keys( 'adults', 'children', 'infants' );
+      expect( updatedVersion['-'] ).to.include( 'park' );
       done();
 
     } );
@@ -143,10 +143,10 @@ describe( 'LIB: Harvest', function() {
 
     it( 'Harvest should throw an error if invalid sharedBasket is passed in', function( done ) {
 
-      var storedBasket = loadTestResource( './fixtures/storedBasketWithParkAndAgent.json' );
+      var storedBasket = loadTestResource( './fixtures/storedBasketWithParkAndAgent' );
       var requestedBasket = {};
 
-      Harvest.saveBasket.bind( Harvest, requestedBasket, storedBasket ).should.throw( 'Invalid Shared Basket' );
+      expect( Harvest.saveBasket.bind( Harvest, requestedBasket, storedBasket ) ).to.throw( 'Invalid Shared Basket' );
 
       done();
 
@@ -155,9 +155,9 @@ describe( 'LIB: Harvest', function() {
     it( 'Harvest should throw an error if invalid storedBasket is passed in', function( done ) {
 
       var storedBasket = {};
-      var requestedBasket = loadTestResource( './fixtures/sharedBasketWithAgentAndPartyComposition.json' );
+      var requestedBasket = loadTestResource( './fixtures/sharedBasketWithAgentAndPartyComposition' );
 
-      Harvest.saveBasket.bind( Harvest, requestedBasket, storedBasket ).should.throw( 'Invalid Stored Basket' );
+      expect( Harvest.saveBasket.bind( Harvest, requestedBasket, storedBasket ) ).to.throw( 'Invalid Stored Basket' );
 
       done();
 
@@ -167,14 +167,14 @@ describe( 'LIB: Harvest', function() {
   describe( '#addVersion', function() {
     it( 'Harvest should return a new Stored Basket when a stored basket is passed in with a new tag', function( done ) {
 
-      var storedBasket = loadTestResource( './fixtures/storedBasketWithParkAndAgent.json' );
+      var storedBasket = loadTestResource( './fixtures/storedBasketWithParkAndAgent' );
       var parentVersionHash = storedBasket.tags[storedBasket.head];
       var originalKeysLength = _.keys( storedBasket.versions ).length;
 
       Harvest.addVersion( storedBasket, parentVersionHash, 'availability' );
 
-      storedBasket.tags.should.include.keys( 'availability' );
-      _.keys( storedBasket.versions ).should.have.length( originalKeysLength + 1 );
+      expect( storedBasket.tags ).to.include.keys( 'availability' );
+      expect( _.keys( storedBasket.versions ) ).to.have.length( originalKeysLength + 1 );
 
       done();
 
@@ -182,10 +182,10 @@ describe( 'LIB: Harvest', function() {
 
     it( 'Harvest should throw an error if a non-existent parent version is passed in', function( done ) {
 
-      var storedBasket = loadTestResource( './fixtures/storedBasketWithParkAndAgent.json' );
+      var storedBasket = loadTestResource( './fixtures/storedBasketWithParkAndAgent' );
       var parentVersionHash = 'missing';
 
-      Harvest.addVersion.bind( Harvest, storedBasket, parentVersionHash, 'availability' ).should.throw( '"missing" is not a valid version hash in this basket' );
+      expect( Harvest.addVersion.bind( Harvest, storedBasket, parentVersionHash, 'availability' ) ).to.throw( '"missing" is not a valid version hash in this basket' );
 
       done();
 
@@ -196,7 +196,7 @@ describe( 'LIB: Harvest', function() {
       var storedBasket = {};
       var parentVersionHash = 'xxxx';
 
-      Harvest.addVersion.bind( Harvest, storedBasket, parentVersionHash, 'availability' ).should.throw( 'Invalid Stored Basket' );
+      expect( Harvest.addVersion.bind( Harvest, storedBasket, parentVersionHash, 'availability' ) ).to.throw( 'Invalid Stored Basket' );
 
       done();
 
@@ -204,9 +204,9 @@ describe( 'LIB: Harvest', function() {
 
     it( 'Harvest should throw an error if no parentVersionHash is passed in', function( done ) {
 
-      var storedBasket = loadTestResource( './fixtures/storedBasketWithParkAndAgent.json' );
+      var storedBasket = loadTestResource( './fixtures/storedBasketWithParkAndAgent' );
 
-      Harvest.addVersion.bind( Harvest, storedBasket ).should.throw( TypeError, 'previousVersionHash must be a string' );
+      expect( Harvest.addVersion.bind( Harvest, storedBasket ) ).to.throw( TypeError, 'previousVersionHash must be a string' );
 
       done();
 
@@ -214,10 +214,10 @@ describe( 'LIB: Harvest', function() {
 
     it( 'Harvest should throw a type error if no tag is passed in', function( done ) {
 
-      var storedBasket = loadTestResource( './fixtures/storedBasketWithParkAndAgent.json' );
+      var storedBasket = loadTestResource( './fixtures/storedBasketWithParkAndAgent' );
       var parentVersionHash = storedBasket.tags[storedBasket.head];
 
-      Harvest.addVersion.bind( Harvest, storedBasket, parentVersionHash ).should.throw( TypeError, 'Tag must be a string' );
+      expect( Harvest.addVersion.bind( Harvest, storedBasket, parentVersionHash ) ).to.throw( TypeError, 'Tag must be a string' );
 
       done();
 
@@ -227,11 +227,11 @@ describe( 'LIB: Harvest', function() {
   describe( '#getSharedBasket', function() {
     it( 'Harvest should return a shared basket when passed a valid stored basket', function( done ) {
 
-      var storedBasket = _.clone( loadTestResource( './fixtures/storedBasketWithParkAndAgent.json' ) );
+      var storedBasket = _.clone( loadTestResource( './fixtures/storedBasketWithParkAndAgent' ) );
       var tag = storedBasket.head;
       var sharedBasket = Harvest.getSharedBasket( storedBasket, tag );
 
-      sharedBasket.should.deep.equal( loadTestResource( './fixtures/sharedBasketWithParkAndAgent.json' ) );
+      expect( sharedBasket ).to.deep.equal( loadTestResource( './fixtures/sharedBasketWithParkAndAgent' ) );
 
       done();
 
@@ -239,10 +239,10 @@ describe( 'LIB: Harvest', function() {
 
     it( 'Harvest should return the head version of a stored basket if a tag is not passed in', function( done ) {
 
-      var storedBasket = loadTestResource( './fixtures/storedBasketWithParkAndAgent.json' );
+      var storedBasket = loadTestResource( './fixtures/storedBasketWithParkAndAgent' );
       var sharedBasket = Harvest.getSharedBasket( storedBasket );
 
-      sharedBasket.should.deep.equal( loadTestResource( './fixtures/sharedBasketWithParkAndAgent.json' ) );
+      expect( sharedBasket ).to.deep.equal( loadTestResource( './fixtures/sharedBasketWithParkAndAgent' ) );
 
       done();
 
@@ -250,10 +250,10 @@ describe( 'LIB: Harvest', function() {
 
     it( 'Harvest should correctly deal with additions and subtractions between versions', function( done ) {
 
-      var storedBasket = loadTestResource( './fixtures/storedBasketWithAdditionsAndSubtractions.json' );
+      var storedBasket = loadTestResource( './fixtures/storedBasketWithAdditionsAndSubtractions' );
       var sharedBasket = Harvest.getSharedBasket( storedBasket );
 
-      sharedBasket.should.deep.equal( loadTestResource( './fixtures/sharedBasketWithAdditionsAndSubtractions.json' ) );
+      expect( sharedBasket ).to.deep.equal( loadTestResource( './fixtures/sharedBasketWithAdditionsAndSubtractions' ) );
 
       done();
 
@@ -264,7 +264,7 @@ describe( 'LIB: Harvest', function() {
       var storedBasket = {};
       var tag = 'xxxx';
 
-      Harvest.getSharedBasket.bind( Harvest, storedBasket, tag ).should.throw( 'Invalid Stored Basket' );
+      expect( Harvest.getSharedBasket.bind( Harvest, storedBasket, tag ) ).to.throw( 'Invalid Stored Basket' );
 
       done();
 
@@ -272,10 +272,10 @@ describe( 'LIB: Harvest', function() {
 
     it( 'Harvest should throw an error if a non-existent tag is passed in', function( done ) {
 
-      var storedBasket = loadTestResource( './fixtures/storedBasketWithParkAndAgent.json' );
+      var storedBasket = loadTestResource( './fixtures/storedBasketWithParkAndAgent' );
       var tag = 'missing';
 
-      Harvest.getSharedBasket.bind( Harvest, storedBasket, tag ).should.throw( '"missing" is not a valid tag in this basket' );
+      expect( Harvest.getSharedBasket.bind( Harvest, storedBasket, tag ) ).to.throw( '"missing" is not a valid tag in this basket' );
 
       done();
 

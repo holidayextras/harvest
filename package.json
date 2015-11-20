@@ -22,9 +22,6 @@
   "devDependencies": {
     "chai": "1.10.0",
     "deployment-helpers": "git+ssh://git@github.com:holidayextras/deployment-helpers.git",
-    "grunt": "0.4.5",
-    "grunt-contrib-jshint": "0.11.0",
-    "grunt-jscs": "1.5.0",
     "istanbul": "0.3.5",
     "make-up": "6.0.0",
     "istanbul": "0.3.7",
