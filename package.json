@@ -1,7 +1,7 @@
 {
   "name": "harvest",
   "description": "Basket Management tool for Shortbreaks",
-  "version": "1.4.1",
+  "version": "2.0.0",
   "homepage": "https://github.com/holidayextras/harvest",
   "author": {
     "name": "Shortbreaks",
@@ -9,25 +9,36 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@bitbucket.org:holidayextras/harvest.git"
+    "url": "git@github.com:holidayextras/harvest.git"
   },
   "license": "MIT",
   "main": "index",
   "engines": {
-    "node": ">= 0.10.0"
+    "node": ">=6.11.0"
   },
   "scripts": {
-    "test": "node_modules/deployment-helpers/nodeApps/preRelease.sh && node_modules/.bin/make-up lib test && istanbul cover _mocha -- --recursive -R spec"
+    "ci": "istanbul cover _mocha --  --timeout 15000 --recursive test/**/*Test.js -R xunit > $CIRCLE_TEST_REPORTS/unit/results.xml",
+    "lint": "standard",
+    "prerelease": "node_modules/deployment-helpers/nodeApps/preRelease.sh",
+    "pretest": "npm run prerelease",
+    "test": "npm run lint && npm run test:coverage",
+    "test:coverage": "NODE_PATH=${PWD} istanbul cover _mocha",
+    "posttest": "istanbul check-coverage"
   },
   "devDependencies": {
-    "chai": "1.10.0",
+    "chai": "4.0.2",
     "deployment-helpers": "git+ssh://git@github.com:holidayextras/deployment-helpers.git",
-    "istanbul": "0.3.5",
-    "make-up": "6.0.0",
-    "istanbul": "0.3.7",
-    "mocha": "2.1.0"
+    "istanbul": "0.4.5",
+    "make-up": "10.0.0",
+    "mocha": "3.4.2",
+    "standard": "^10.0.2"
   },
   "dependencies": {
-    "lodash": "2.4.1"
+    "lodash": "4.17.4"
+  },
+  "standard": {
+    "env": {
+      "mocha": true
+    }
   }
 }
