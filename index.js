@@ -1,4 +1,4 @@
 /* jslint node: true */
-'use strict';
+'use strict'
 
-module.exports = require( './lib/harvest.js' );
+module.exports = require('./lib/harvest.js')
