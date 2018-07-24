@@ -1,7 +1,5 @@
 # harvest
 
-[![Circle CI](https://circleci.com/gh/holidayextras/harvest/tree/master.svg?style=svg&circle-token=39010957afc0ba58725f35e050a5b3cc96430bcd)](https://circleci.com/gh/holidayextras/harvest/tree/master)
-
 ## About
 
 Harvest is a basket management system that translates baskets between 2 representations -a shared basket can have its data manipulated and a stored basket is a versioned object that can then be persisted to a document store.

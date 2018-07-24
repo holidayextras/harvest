@@ -1,7 +1,7 @@
 {
   "name": "harvest",
   "description": "Basket Management tool for Shortbreaks",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "homepage": "https://github.com/holidayextras/harvest",
   "author": {
     "name": "Shortbreaks",
@@ -17,7 +17,7 @@
     "node": ">=6.11.0"
   },
   "scripts": {
-    "ci": "istanbul cover _mocha --  --timeout 15000 --recursive test/**/*Test.js -R xunit > $CIRCLE_TEST_REPORTS/unit/results.xml",
+    "ci": "echo 'nothing to do here'",
     "lint": "standard",
     "prerelease": "node_modules/deployment-helpers/nodeApps/preRelease.sh",
     "pretest": "npm run prerelease",
