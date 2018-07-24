@@ -24,7 +24,7 @@
     "test": "npm run lint && npm run test:coverage",
     "test:coverage": "NODE_PATH=${PWD} istanbul cover _mocha",
     "posttest": "istanbul check-coverage",
-    "deploy": "exit 0"
+    "deploy": "./scripts/deploy.sh"
   },
   "devDependencies": {
     "chai": "4.0.2",
