@@ -148,3 +148,7 @@ Code is linted by '.jshintrc' and checked against the coding style guide 'shortb
 ## License
 Copyright (c) 2015 Shortbreaks
 Licensed under the MIT license.
+
+## What this repository does
+
+Node.js library for basket version management, storing shared basket snapshots as versioned diffs and reconstructing baskets by tag or head version.
